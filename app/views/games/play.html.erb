@@ -1,0 +1,15 @@
+<% provide(:gameplay_js, @game.game_version.gameplay_js.path) %>
+<% provide(:custom_css, @game.game_version.custom_css.path) %>
+
+<script type="text/javascript">
+    $(document).ready(<%= @game.game_version.main_method %>);
+</script>
+<h1><%= @game.name %></h1>
+<br>
+<div id="playfield"></div>
+
+<div id="highscore_form">
+<%= render 'layouts/game_highscore_form' %>
+</div>
+
+<h6>Created by <%= @game.user.name unless @game.user.nil? %></h6>

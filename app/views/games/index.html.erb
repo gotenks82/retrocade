@@ -1,0 +1,13 @@
+<h1>Game#index</h1>
+<% if @games.size > 0 %>
+<ul>
+<% @games.each do |g| %>
+    <li><%= link_to g.name, play_game_path(g) %></li>
+    <li><%= g.game_hash %></li>
+    <li><%= g.game_version.custom_css.name %></li>
+    <li><%= g.game_version.custom_css.path %></li>
+    <li><%= g.game_version.gameplay_js.name %></li>
+    <li><%= g.game_version.gameplay_js.path %></li>
+<% end %>
+</ul>
+<% end %>

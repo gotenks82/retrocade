@@ -1,0 +1,7 @@
+$("#highscore_form").html("<%= escape_javascript(render partial: "layouts/game_highscore_form" ) %>");
+var flashhtml;
+<% @tempflash.each do |key, value| %>
+    flashhtml = "<div class='alert alert-<%= key %>'><%= value %></div>";
+    $('#highscore_form').append(flashhtml);
+<% end %>
+setTimeout(function(){$('#highscore_form').find('.alert').remove()}, 2000);
