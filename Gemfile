@@ -48,4 +48,5 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'sprockets', '2.11.0'
 
-gem 'rails_12factor', group: :production
+gem 'rails_12factor'
+gem 'pg'
