@@ -1,2 +1,69 @@
-<h1>Game#edit</h1>
-<p>Find me in app/views/game/edit.html.erb</p>
+<h1><%= "#{@game.name} (Ver. #{@game.game_version.version})" %></h1>
+<div class="container-fluid">
+  <div class="row">
+<% @game.game_images.each do |img| %>
+        <div class="col-md-8">
+    <%= image_tag img.image_url(:thumb) %>
+        </div>
+<% end %>
+
+  </div>
+</div>
+<%= form_for(@game, :html => { :multipart => true }) do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <%= f.fields_for :game_images do |p| %>
+        <div class="field">
+          <%= p.label :game_screenshots %>
+          <%= p.file_field :game_image, :multiple => true, name: "game_images[game_image][]" %>
+        </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Save" %>
+    </div>
+<% end %>
+Game Versions
+<ul>
+<% @game.game_versions.each do |gv| %>
+    <li>
+      <%= link_to gv.version, change_version_game_path(@game, :new_version => gv.version), method: :post, :title => 'Switch Game Version' %>
+      <%= "#{gv.gameplay_js.name}:#{gv.main_method} - #{gv.custom_css.name} - #{gv.changes_from_last_version}" %>
+      <% unless gv.id == @game.game_version.id %>
+        <%= link_to 'Delete Version', delete_version_game_path(@game, :gv_id => gv.id, :gv_ver => gv.version), method: :delete %>
+      <%end%>
+    </li>
+<% end %>
+</ul>
+<br>
+Add a new Version
+<%= form_for(@game_version, url: save_new_version_game_path(@game), :html => { :multipart => true }) do |f| %>
+    <div class="field">
+      <%= f.label :changes %>
+      <%= f.text_field :changes_from_last_version %>
+    </div>
+    <div class="field">
+      <%= f.label "Gameplay JS File" %>
+      <%= f.file_field :gameplay_js %>
+    </div>
+    <div class="field">
+      <%= f.label :main_method %>
+      <%= f.text_field :main_method %>
+    </div>
+    <div class="field">
+      <%= f.label "Gameplay Custom CSS File" %>
+      <%= f.file_field :custom_css %>
+    </div>
+    <%= f.fields_for :img_assets do |p| %>
+        <div class="field">
+          <%= p.label "Img Assets (gif,png,sprites,etc)" %>
+          <%= p.file_field :img_asset, :multiple => true, name: "img_assets[img_asset][]" %>
+        </div>
+    <% end %>
+    <div class="actions">
+      <%= f.submit "Save New Version" %>
+    </div>
+<% end %>

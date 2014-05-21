@@ -19,7 +19,11 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  host: 172.17.42.1                            # HOST
+  port: 49153
+  database: retrocade
+  pool: 10
+  username: root
+  password: vaNRpkB2ffciQs3n

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514141313) do
+ActiveRecord::Schema.define(version: 20140515090121) do
 
   create_table "comments", force: true do |t|
     t.string   "text"
@@ -30,9 +30,17 @@ ActiveRecord::Schema.define(version: 20140514141313) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_version_id"
+    t.string   "file"
   end
 
   add_index "custom_csses", ["game_version_id"], name: "index_custom_csses_on_game_version_id"
+
+  create_table "game_images", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image"
+    t.integer  "game_id"
+  end
 
   create_table "game_versions", force: true do |t|
     t.string   "name"
@@ -58,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140514141313) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_version_id"
+    t.string   "file"
   end
 
   add_index "gameplay_js", ["game_version_id"], name: "index_gameplay_js_on_game_version_id"
@@ -103,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140514141313) do
     t.string   "test_js_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file"
   end
 
   create_table "users", force: true do |t|

@@ -10,6 +10,9 @@ Retrocade::Application.routes.draw do
   resources :games do
     member do
       get 'play'
+      post 'save_new_version'
+      post 'change_version'
+      delete 'delete_version'
     end
   end
 

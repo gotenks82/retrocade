@@ -6,4 +6,7 @@
   <data-source source="LOCAL" name="Rails retrocade: test" uuid="68c3d4bf-8a40-4be4-a873-00af29667f46">
     <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
+  <data-source source="LOCAL" name="Rails retrocade: production" uuid="50dd8411-e961-46d0-9cdd-ee55702281ce">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>

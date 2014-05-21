@@ -1,13 +1,32 @@
-<h1>Game#index</h1>
-<% if @games.size > 0 %>
-<ul>
-<% @games.each do |g| %>
-    <li><%= link_to g.name, play_game_path(g) %></li>
-    <li><%= g.game_hash %></li>
-    <li><%= g.game_version.custom_css.name %></li>
-    <li><%= g.game_version.custom_css.path %></li>
-    <li><%= g.game_version.gameplay_js.name %></li>
-    <li><%= g.game_version.gameplay_js.path %></li>
-<% end %>
+<h1>Browse Games</h1>
+
+<ul>To Do:
+  <li>Search by (Name,Tags,Vote)</li>
+  <li>Order by (Alphabet,Vote,Date)</li>
+  <li>...</li>
 </ul>
+
+
+<% if @games.size > 0 %>
+    <div class="container-fluid">
+      <div class="row">
+<% @games.each do |g| %>
+    <div class="col-md-1">
+      <table>
+        <tr><td><%= g.name %></td></tr>
+        <tr><td>
+        <% unless g.game_images.nil? or g.game_images.size == 0 %>
+            <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
+        <% end %>
+      </td></tr>
+        <tr><td>
+          <% if current_user == g.user %>
+             <%= link_to "Edit", edit_game_path(g) %>
+          <% end %>
+        </td></tr>
+      </table>
+    </div>
+<% end %>
+    </div>
+</div>
 <% end %>

@@ -1,0 +1,107 @@
+body {
+	text-align: center
+}
+div {
+	margin: 0 auto;
+	text-align: center
+}
+
+
+
+h1 {
+	color: blue;
+}
+
+h1.redTitle{
+	color: red;
+}
+
+td {
+	border:1px solid black;
+	width:20px;
+	height:20px;
+	text-align:center;
+}
+
+td.hiddenCell {
+	background-image:url('../img/hidden.png');
+	background-size: 21px 21px;
+	background-position:center; 
+}
+
+td.blankCell {
+	background-color: lightgray;
+}
+
+td.numberCell {
+	background-color: lightgray;
+}
+
+td.explodedMineCell {
+	background-image:url('../img/exploded_bomb.png');
+	background-size: 21px 21px;
+	background-position:center;
+}
+
+td.mineCell {
+	background-image:url('../img/bomb.png');
+	background-size: 21px 21px;
+	background-position:center;
+}
+
+td.flaggedCell {
+	background-image:url('../img/flag.png');
+	background-size: 21px 21px;
+	background-position:center;
+}
+
+td.highlighted {
+	border:1px solid red;
+}
+
+table {
+	border:1px solid black;
+}
+table#counters {
+	border: 0;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+}
+table#counters td {
+	border: 0;
+	text-align: center;
+	margin: 0 auto;
+}
+table#counters td.timer {
+	display: none;
+	border:3px solid red;
+	background-color: black;
+	color: red;
+	width: 80px;
+	height: 20px;
+	margin-top:10px;
+	text-align: center;
+	font-weight: bold;
+}
+table#counters td.flags {
+	display: none;
+	border:3px solid blue;
+	background-color: black;
+	color: blue;
+	width: 80px;
+	height: 20px;
+	margin-top:10px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.gameover {
+	color: red;
+	display: none;
+}
+
+.gamewon {
+	color: green;
+	display: none;
+}

@@ -1,23 +1,99 @@
 class GamesController < ApplicationController
+  #before_action :loadGame, only: [:show, :edit, :play, :delete, :update, :save_new_version, :change_version, :delete_version]
+  before_action :checkLogin, except: [:index]
+  before_action :loadGame, except: [:new, :index]
+
+  def loadGame
+    @game = Game.find(params[:id])
+  end
+
   def new
   end
 
-  def edit
+  def show
+    redirect_to action: :edit
   end
 
+  def edit
+    @game_images = @game.game_images.build
+    @game_version =  @game.next_version
+    @img_assets = []
+  end
 
+  def update
+    @game.update(game_params)
+    if params[:game_images]
+      params[:game_images]['game_image'].each do |a|
+        @game_images = @game.game_images.create!(:image => a, :game_id => @game.id)
+      end
+    end
+    redirect_to action: :edit
+  end
+
+  def change_version
+    if params[:new_version] && @game.change_version!(params[:new_version])
+      flash[:notice] = "Game version set to n. #{params[:new_version]}"
+    else
+      flash[:error] = 'Error updating Game Version'
+    end
+    redirect_to action: :edit
+  end
+
+  def delete_version
+    if params[:gv_id] && params[:gv_ver]
+      if @game.delete_version!(params[:gv_id],params[:gv_ver])
+        flash[:notice] = "Successfully deleted version n. #{params[:gv_ver]}"
+      else
+        flash[:error] = 'Error Deleting Game Version'
+      end
+    end
+    redirect_to action: :edit
+  end
+
+  def save_new_version
+    @game_version =  @game.next_version
+    if params[:game_version]
+      @game_version.changes_from_last_version = params[:game_version][:changes_from_last_version]
+      @game_version.main_method = params[:game_version][:main_method]
+      @game_version.custom_css = CustomCss.new({:game_version => @game_version, :file => params[:game_version][:custom_css]}) if params[:game_version][:custom_css]
+      @game_version.gameplay_js = GameplayJs.new({:game_version => @game_version, :file => params[:game_version][:gameplay_js]}) if params[:game_version][:gameplay_js]
+      params[:img_assets]['img_asset'].each do |a|
+        img = ImgAsset.new
+        img.image = a
+        img.path = @game_version.game_img_assets_path
+        img.save
+      end
+      if @game_version.save
+         if @game.change_version!(@game_version.version)
+           flash[:notice] = "Game Version updated to n.#{@game_version.version}!"
+         else
+          flash[:error] = 'Error updating Game Version'
+        end
+      else
+        flash[:error] = 'Error creating new Version'
+      end
+    else
+      flash[:error] = 'No Changes to save'
+    end
+    redirect_to action: :edit
+  end
 
   def index
     @games = Game.order(:name)
   end
 
   def play
-    @game = Game.find(params[:id])
     @user = current_user
     @play = true
     @highscore = Highscore.new
   end
 
   def delete
+    redirect_to :index
+  end
+
+private
+  def game_params
+    params.require(:game).permit(:name)
   end
 end

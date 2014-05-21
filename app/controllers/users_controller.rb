@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-
+  before_action :checkLogin, except: [:new, :create]
   before_action :load_user, only: [:show, :edit, :update, :destroy]
+
+
 
   def load_user
     @user = User.find(params[:id]);

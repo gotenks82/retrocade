@@ -145,7 +145,6 @@ function endGame(){
 	$("#minefield").append("<div class='gamewon'> You Won! </div>");
 	$(".gameover").slideDown();
     send_highscore(time,"easy")
-
 }
 
 function showAll(){
@@ -239,7 +238,7 @@ minesweeper = function(){
 $("#playfield").append("<div id='minefield'><table id='counters'><tr><td class='flags' id='flag_number'></td><td class='timer' id='time'></td></tr></table></div>");
 
 
-createMinefield(10,10,2);
+createMinefield(10,10,20);
 
 $("#minefield").find("td").on("mouseenter", function(){
 	$(this).toggleClass("highlighted");

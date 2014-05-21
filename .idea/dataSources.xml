@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2686426459">
+  <component name="DataSourceManagerImpl" format="xml" hash="2982360692">
     <data-source source="LOCAL" name="Rails retrocade: development" uuid="739c96f8-9f94-4ee3-a06a-e17225b499d6">
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
@@ -11,6 +11,14 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Sites\retrocade\db\test.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails retrocade: production" uuid="50dd8411-e961-46d0-9cdd-ee55702281ce">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://172.17.42.1:49153/retrocade</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfdcdfcbdfe4dff8dfdadfc1dfe8df98dfccdfccdfc9dfc3dffbdfd9df99dfc4</user-password>
       <libraries />
     </data-source>
   </component>
