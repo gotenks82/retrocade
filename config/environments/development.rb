@@ -8,7 +8,7 @@ Retrocade::Application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
-
+  config.assets.precompile += %w( store/all.js store/all.css admin/all.js admin/all.css favicon.ico)
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
@@ -26,4 +26,7 @@ Retrocade::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  #config.assets.js_compressor = :uglifier
+  #config.assets.compile = false
+  #config.assets.digest = true
 end
