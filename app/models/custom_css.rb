@@ -22,7 +22,7 @@ class CustomCss < ActiveRecord::Base
     end
 
   def set_path_and_name
-    self.name = file.file.original_filename
+    self.name = file.file.original_filename if self.name.nil?
     self.path = File.join(file_path,self.name)
   end
 
