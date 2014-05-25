@@ -1,13 +1,31 @@
 class GamesController < ApplicationController
   #before_action :loadGame, only: [:show, :edit, :play, :delete, :update, :save_new_version, :change_version, :delete_version]
   before_action :checkLogin, except: [:index]
-  before_action :loadGame, except: [:new, :index]
+  before_action :loadGame, except: [:new, :index, :create]
 
   def loadGame
     @game = Game.find(params[:id])
   end
 
   def new
+    @game = Game.new
+    @game_images = @game.game_images.build
+    @game_version = GameVersion.new
+    @game_version.gameplay_js = GameplayJs.new({:game_version => @game_version})
+    @game_version.custom_css = CustomCss.new({:game_version => @game_version})
+    @img_assets = []
+    @js_libraries = JsLibrary.where({:enabled => true}).order(:name,'version DESC')
+    @selected_libraries = []
+  end
+
+  def create
+    if Game.create_game!(game_params,params[:game_version], params[:img_assets], params[:game_images], current_user, params[:selected_libraries])
+      flash[:notice] = 'New Game created successfully!'
+      redirect_to :back
+    else
+      flash[:error] = 'Error creating new Game'
+      redirect_to action: :new
+    end
   end
 
   def show
@@ -18,6 +36,8 @@ class GamesController < ApplicationController
     @game_images = @game.game_images.build
     @game_version =  @game.next_version
     @img_assets = []
+    @js_libraries = JsLibrary.where({:enabled => true}).order(:name,'version DESC')
+    @selected_libraries = []
   end
 
   def update
@@ -50,7 +70,7 @@ class GamesController < ApplicationController
     redirect_to action: :edit
   end
 
-  def save_new_version
+  def save_new_version # TODO: refactor - move logic to game or game_version model
     @game_version =  @game.next_version
     if params[:game_version]
       @game_version.changes_from_last_version = params[:game_version][:changes_from_last_version]
@@ -62,6 +82,12 @@ class GamesController < ApplicationController
         img.image = a
         img.path = @game_version.game_img_assets_path
         img.save
+      end
+      if params['selected_libraries']
+        params['selected_libraries'].each do |js_id|
+          lib = JsLibrary.find(js_id)
+          @game_version.js_libraries << lib if lib
+        end
       end
       if @game_version.save
          if @game.change_version!(@game_version.version)
@@ -79,7 +105,7 @@ class GamesController < ApplicationController
   end
 
   def index
-    @games = Game.order(:name)
+    @games = Game.order(:name).where({:enabled => true})
   end
 
   def play
@@ -88,12 +114,18 @@ class GamesController < ApplicationController
     @highscore = Highscore.new
   end
 
-  def delete
-    redirect_to :index
+  def destroy
+    @game.destroy_game!
+    redirect_to :back
+  end
+
+  def toggle_enabled
+    @game.toggle_enabled!
+    redirect_to :back
   end
 
 private
   def game_params
-    params.require(:game).permit(:name)
+    params.require(:game).permit(:name, :description)
   end
 end

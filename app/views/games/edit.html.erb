@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
 <% @game.game_images.each do |img| %>
-        <div class="col-md-8">
+        <div class="col-md-1">
     <%= image_tag img.image_url(:thumb) %>
         </div>
 <% end %>
@@ -14,16 +14,19 @@
       <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
-
+    <div >
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
     <%= f.fields_for :game_images do |p| %>
         <div class="field">
           <%= p.label :game_screenshots %>
-          <%= p.file_field :game_image, :multiple => true, name: "game_images[game_image][]" %>
+          <%= p.file_field :game_image, :multiple => true, name: 'game_images[game_image][]' %>
         </div>
     <% end %>
 
     <div class="actions">
-      <%= f.submit "Save" %>
+      <%= f.submit 'Save' %>
     </div>
 <% end %>
 Game Versions
@@ -36,6 +39,13 @@ Game Versions
         <%= link_to 'Delete Version', delete_version_game_path(@game, :gv_id => gv.id, :gv_ver => gv.version), method: :delete %>
       <%end%>
     </li>
+      <% if gv.js_libraries %>
+    <p>uses:
+    <% gv.js_libraries.each do |l| %>
+      <%= "#{l.name} (#{l.version})" %>
+      <%end%>
+    </p>
+          <% end %>
 <% end %>
 </ul>
 <br>
@@ -46,7 +56,7 @@ Add a new Version
       <%= f.text_field :changes_from_last_version %>
     </div>
     <div class="field">
-      <%= f.label "Gameplay JS File" %>
+      <%= f.label 'Gameplay JS File' %>
       <%= f.file_field :gameplay_js %>
     </div>
     <div class="field">
@@ -54,16 +64,25 @@ Add a new Version
       <%= f.text_field :main_method %>
     </div>
     <div class="field">
-      <%= f.label "Gameplay Custom CSS File" %>
+      <%= f.label 'Gameplay Custom CSS File' %>
       <%= f.file_field :custom_css %>
     </div>
     <%= f.fields_for :img_assets do |p| %>
         <div class="field">
-          <%= p.label "Img Assets (gif,png,sprites,etc)" %>
-          <%= p.file_field :img_asset, :multiple => true, name: "img_assets[img_asset][]" %>
+          <%= p.label 'Img Assets (gif,png,sprites,etc)' %>
+          <%= p.file_field :img_asset, :multiple => true, name: 'img_assets[img_asset][]' %>
         </div>
     <% end %>
+    <div><h5>Select needed JS Libraries</h5>
+      <%= f.fields_for :selected_libraries do |sl| %>
+          <% @js_libraries.each do |js| %>
+              <div class="field">
+                <input type="checkbox" id="library_<%= js.id %>" name="selected_libraries[]" value="<%= js.id %>"><%= sl.label "#{js.name} (#{js.version})" %>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
     <div class="actions">
-      <%= f.submit "Save New Version" %>
+      <%= f.submit 'Save New Version' %>
     </div>
 <% end %>

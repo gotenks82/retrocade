@@ -1,4 +1,9 @@
 Retrocade::Application.routes.draw do
+  get "js_libraries/index"
+  get "js_libraries/new"
+  get "js_libraries/create"
+  get "js_libraries/destroy"
+  match 'help', to: 'help#show', via: 'get'
   get "highscores/index"
   get "highscores/new"
   get "highscores/create"
@@ -13,11 +18,17 @@ Retrocade::Application.routes.draw do
       post 'save_new_version'
       post 'change_version'
       delete 'delete_version'
+      post 'toggle_enabled'
     end
   end
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :highscores
+  resources :js_libraries do
+    member do
+      post 'toggle_enabled'
+    end
+  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

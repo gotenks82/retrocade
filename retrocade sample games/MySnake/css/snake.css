@@ -1,0 +1,60 @@
+body {
+	text-align: center
+}
+div {
+	margin: 0 auto;
+	text-align: center
+}
+
+
+
+h1 {
+	color: blue;
+}
+
+h1.redTitle {
+	color: red;
+}
+
+td {
+	border:1px solid lightgray;
+	width:20px;
+	height:20px;
+	text-align:center;
+}
+
+.snakeHead {
+	background-color: DarkGreen;
+}
+.snaheHead.dead {
+	background-color: DarkGrey;
+}
+
+.snakeTail {
+	background-color: LightGreen;
+}
+
+.snakeTail.dead {
+	background-color: LightGray;
+}
+
+.snakeBody {
+	background-color: #ADFF2F;
+}
+
+.snakeBody.dead {
+	background-color: Gray;
+}
+
+.apple {
+	background-color: red;
+}
+
+table {
+	border:1px solid black;
+}
+
+.gameover {
+	color: red;
+	display: none;
+}

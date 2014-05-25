@@ -1,4 +1,4 @@
-RETROCADE
+Alex's RetrocadeJS
 =========
 
 This is an HTML5/JS gaming portal which will let users:

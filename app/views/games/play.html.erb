@@ -1,6 +1,10 @@
-<% provide(:gameplay_js, @game.game_version.gameplay_js.path) %>
-<% provide(:custom_css, @game.game_version.custom_css.path) %>
-
+<ul>To Do:
+  <li>Let user vote game</li>
+  <li>Let user comment game</li>
+  <li>Show top highscores</li>
+  <li>Show latest comments on the game</li>
+  <li>Link to public user profile...</li>
+</ul>
 <script type="text/javascript">
     $(document).ready(<%= @game.game_version.main_method %>);
 </script>
@@ -13,3 +17,4 @@
 </div>
 
 <h6>Created by <%= @game.user.name unless @game.user.nil? %></h6>
+<input type="hidden" id="game_content_path" value="/<%= @game.game_version.game_img_assets_path %>">

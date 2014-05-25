@@ -1,4 +1,21 @@
 class JsLibrary < ActiveRecord::Base
   has_and_belongs_to_many :game_versions
-  mount_uploader :file, JsLibraryUploader
+
+
+
+  def check_url
+    client = HTTPClient.new
+    content = client.get_content(self.path).to_s
+    content.include? self.name and content.include? self.version
+  end
+
+  def check_url_and_save!
+    self.save if check_url
+  end
+
+  def toggle_enabled!
+    self.enabled = self.enabled.nil?? true : !self.enabled
+    self.save
+  end
+
 end

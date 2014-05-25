@@ -1,4 +1,11 @@
 <% if @play %>
-<script src="/<%=yield(:gameplay_js) %>" ></script>
-<link href="/<%= yield(:custom_css)%>" media="all" rel="stylesheet">
+<% if @game.game_version.gameplay_js %><script src="/<%= @game.game_version.gameplay_js.path %>" ></script><% end %>
+<% if @game.game_version.custom_css %><link href="/<%= @game.game_version.custom_css.path %>" media="all" rel="stylesheet"><% end %>
+<% if @game.game_version.js_libraries %>
+    <% @game.game_version.js_libraries.each do |lib| %>
+        <script src="<%= lib.path %>" ></script>
+    <% end %>
+<% end %>
+
+
 <% end %>

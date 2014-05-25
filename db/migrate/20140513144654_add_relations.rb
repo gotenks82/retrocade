@@ -2,7 +2,7 @@ class AddRelations < ActiveRecord::Migration
   def change
     create_table :game_versions_js_libraries, id: false do |t|
       t.belongs_to :game_version
-      t.belongs_to :js_library
+      t.belongs_to :js_libraries
     end
 
     change_table :games do |t|

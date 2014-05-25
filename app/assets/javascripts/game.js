@@ -8,6 +8,10 @@ function send_highscore(score,level){
     }
 }
 
+function getImgPath(img){
+    return $('#game_content_path').val() +"/"+img;
+}
+
 function replay(){
 
 }

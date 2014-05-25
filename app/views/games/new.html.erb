@@ -1,2 +1,56 @@
 <h1>Upload a Game</h1>
-<p>Find me in app/views/game/new.html.erb</p>
+
+<%= form_for(@game, :html => { :multipart => true }) do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div >
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+    <%= f.fields_for :game_images do |p| %>
+        <div class="field">
+          <%= p.label :game_screenshots %>
+          <%= p.file_field :game_image, :multiple => true, name: "game_images[game_image][]" %>
+        </div>
+    <% end %>
+
+    <%= f.fields_for :game_version do |gv| %>
+        <div class="field">
+          <%= gv.label :changes %>
+          <%= gv.text_field :changes_from_last_version, name: 'game_version[changes_from_last_version]' %>
+        </div>
+        <div class="field">
+          <%= gv.label "Gameplay JS File" %>
+          <%= gv.file_field :gameplay_js, name: 'game_version[gameplay_js]' %>
+        </div>
+        <div class="field">
+          <%= gv.label :main_method %>
+          <%= gv.text_field :main_method, name: 'game_version[main_method]' %>
+        </div>
+        <div class="field">
+          <%= gv.label "Gameplay Custom CSS File" %>
+          <%= gv.file_field :custom_css, name: 'game_version[custom_css]' %>
+        </div>
+    <% end %>
+    <%= f.fields_for :img_assets do |ia| %>
+        <div class="field">
+          <%= ia.label "Img Assets (gif,png,sprites,etc)" %>
+          <%= ia.file_field :img_asset, :multiple => true, name: 'img_assets[img_asset][]' %>
+        </div>
+    <% end %>
+    <br>
+    <div><h5>Select needed JS Libraries</h5>
+    <%= f.fields_for :selected_libraries do |sl| %>
+        <% @js_libraries.each do |js| %>
+            <div class="field">
+              <input type="checkbox" id="library_<%= js.id %>" name="selected_libraries[]" value="<%= js.id %>"><%= sl.label "#{js.name} (#{js.version})" %>
+            </div>
+        <% end %>
+    <% end %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Create" %>
+    </div>
+<% end %>

@@ -2,3 +2,37 @@
   <%= gravatar_for @user %>
   Hello, <%= @user.name %>
 </h1>
+
+<ul>To Do:
+  <li>Edit user profile</li>
+  <li>Change password</li>
+  <li>Show latest comments on my games</li>
+  <li>...</li>
+</ul>
+
+<% if @user.games %>
+<div class="row ">
+<% @user.games.each do |g|%>
+    <div class="col-md-2">
+      <table>
+        <tr><td><%= g.name %></td></tr>
+        <tr><td>
+          <% unless g.game_images.nil? or g.game_images.size == 0 %>
+              <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
+          <% end %>
+        </td></tr>
+        <tr><td>
+          <% if current_user == g.user %>
+              <%= link_to g.enabled?? 'Disable' : 'Enable', toggle_enabled_game_path(g), method: :post%>
+              <%= link_to "Edit", edit_game_path(g) %> -
+              <%= link_to "Delete", game_path(g), method: :delete %>
+          <% end %>
+        </td></tr>
+      </table>
+    </div>
+<%end%>
+</div>
+<% end %>
+<div class="row">
+  <%= button_to 'Upload a new game', new_game_path, method: :get %>
+</div>

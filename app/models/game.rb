@@ -7,23 +7,10 @@ class Game < ActiveRecord::Base
   has_many :highscores
   has_many :game_images
 
+  before_save :calculate_hash
 
-  def self.demoGame
-    #dati di prova per sviluppo viste...
-    minesweeper = Game.new
-    minesweeper.id = 1
-    minesweeper.name = 'MineSweeper'
-    minesweeper.enabled = true
-    minesweeper.game_hash = Digest::SHA1.hexdigest('alex.pedini@gmail.com-minesweeper')
-    minesweeper.game_version = GameVersion.new
-    minesweeper.game_version.game_hash = minesweeper.game_hash
-    minesweeper.game_version.version = 1
-    minesweeper.game_version.main_method = 'minesweeper'
-    #asset_path = "#{Rails.root}/public/assets"
-    #File.open("#{asset_path}/games/testfile.txt", 'w') {|f| f.write("test write") }
-    minesweeper.game_version.custom_css = CustomCss.new({:name => 'minesweeper.css', :path => "/game_content/minesweeper/css/minesweeper.css"})
-    minesweeper.game_version.gameplay_js = GameplayJs.new({:name=> 'minesweeper.js', :path => "/game_content/minesweeper/js/minesweeper.js"})
-    minesweeper
+  def calculate_hash
+    self.game_hash = Digest::SHA1.hexdigest("#{self.user.email}-#{self.name}")
   end
 
   def next_version
@@ -56,6 +43,12 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def delete_all_versions!
+    self.game_versions.each do |gv|
+      delete_version!(gv.id,gv.version)
+    end
+  end
+
   def game_versions
     GameVersion.where("game_hash = '#{self.game_hash}'").order('version DESC')
   end
@@ -63,4 +56,65 @@ class Game < ActiveRecord::Base
   def last_version
     game_versions.first
   end
+
+  def self.create_game!( game_params, game_version_params, img_assets_params, game_images_params, current_user, selected_libraries)
+    game = Game.new(game_params)
+    puts "game version params:" + game_version_params.to_s
+    Game.transaction do
+      game.user= current_user
+      game.calculate_hash
+      raise ActiveRecord::Rollback unless game.save
+      game_version = GameVersion.new({:game_id => game.id, :version => 1})
+      game_version.changes_from_last_version = game_version_params[:changes_from_last_version]
+      game_version.main_method = game_version_params[:main_method]
+      game_version.game_hash = game.game_hash
+      game_version.custom_css = CustomCss.new({:game_version => game_version, :file => game_version_params[:custom_css]}) if game_version_params[:custom_css]
+      game_version.gameplay_js = GameplayJs.new({:game_version => game_version, :file => game_version_params[:gameplay_js]}) if game_version_params[:gameplay_js]
+      if img_assets_params
+        img_assets_params['img_asset'].each do |a|
+          img = ImgAsset.new
+          img.image = a
+          img.path = game_version.game_img_assets_path
+          raise ActiveRecord::Rollback unless img.save
+        end
+      end
+      if selected_libraries
+        selected_libraries.each do |js_id|
+          lib = JsLibrary.find(js_id)
+          game_version.js_libraries << lib if lib
+        end
+      end
+      raise ActiveRecord::Rollback unless game_version.save
+      puts "Game_version saved!"
+      game.game_version = game_version
+      game.enabled = false
+      raise ActiveRecord::Rollback unless game.save
+      puts "Game version updated!"
+      if game_images_params
+        game_images_params['game_image'].each do |a|
+          game_images = game.game_images.new(:image => a, :game_id => game.id)
+          raise ActiveRecord::Rollback unless game_images.save
+        end
+      end
+      game
+    end
+  end
+
+  def destroy_game!
+    self.transaction do
+    #for each version
+    #destroy custom_css
+    #destroy gameplay_js
+    #destroy game_images
+    #delete game_path folder
+      self.delete_all_versions!
+      raise ActiveRecord::Rollback unless self.delete
+    end
+  end
+
+  def toggle_enabled!
+    self.enabled = self.enabled.nil?? true : !self.enabled
+    self.save
+  end
+
 end
