@@ -1,12 +1,5 @@
 Retrocade::Application.routes.draw do
-  get "js_libraries/index"
-  get "js_libraries/new"
-  get "js_libraries/create"
-  get "js_libraries/destroy"
   match 'help', to: 'help#show', via: 'get'
-  get "highscores/index"
-  get "highscores/new"
-  get "highscores/create"
   # get "home/home"
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

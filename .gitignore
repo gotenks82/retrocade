@@ -19,3 +19,10 @@
 /.idea
 
 *.lock
+.idea/.generators
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/retrocade.iml
+.idea/runConfigurations/Production__retrocade.xml
+.idea/workspace.xml
+Gemfile.lock

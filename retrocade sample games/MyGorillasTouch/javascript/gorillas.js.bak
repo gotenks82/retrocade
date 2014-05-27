@@ -1,0 +1,62 @@
+
+var playfield = {};
+var up = 38;
+var down = 40;
+var left = 37;
+var right = 39;
+var movement;
+
+var banana;
+
+/*
+37 - left
+
+38 - up
+
+39 - right
+
+40 - down
+
+}*/
+
+function placeBanana(){
+	banana = '<img src=".\\img\\Banana.png" class="banana">';
+	$('#playfield').append(banana);
+	banana = $('.banana');
+	banana.css('top',$('#playfield').heigth /2 ).css('left',0);
+	
+	
+}
+
+
+gorillasgame = function(){
+	//alert("snaaaake");
+	//prepareField();
+	//createSnake(1);
+	
+	//renderSnake(ALIVE);
+	/*$(document).keydown(function(e){
+		changeDirection(e);
+	});*/
+	placeBanana();
+	var velocity = {};
+	velocity.v = 200;
+	velocity.angle = 55;
+	velocity.x = velocity.v * Math.sin(velocity.angle * Math.PI / 180) / 20;
+	velocity.y = velocity.v * Math.cos(velocity.angle * Math.PI / 180) / 20;
+	banana.addClass("rotating");
+	var start = Date.now();
+	movement = setInterval(function () {
+		now = Date.now();
+		elapsed = (now - start)/50.0;
+		var banana_top = 240 - Math.round(elapsed*(velocity.x)) + Math.round(elapsed*elapsed*(0.1));
+		var banana_left = 0 + Math.round(elapsed*(velocity.y));
+		banana.css("top",banana_top);
+		banana.css("left",banana_left);
+		//renderSnake();
+		if(banana_top > 440 || banana_left> 600) {
+			clearInterval(movement);
+			banana.removeClass("rotating");
+		}
+	}, 25);
+}

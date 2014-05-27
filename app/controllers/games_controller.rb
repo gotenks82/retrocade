@@ -29,7 +29,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    redirect_to action: :edit
+    redirect_to action: :edit if @game.user == current_user
   end
 
   def edit

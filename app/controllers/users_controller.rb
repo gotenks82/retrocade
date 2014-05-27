@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
 	def index
-		@users = User.order(:id);
+		@users = User.order(:name);
 	end
 
 	def new
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     else
       render 'new'
 		end
-	end
+  end
 
 	def show
 	end

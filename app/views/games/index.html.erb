@@ -1,7 +1,7 @@
 <h1>Browse Games</h1>
 
 <ul>To Do:
-  <li>Search by (Name,Tags,Vote)</li>
+  <li>Search by (Name,Tags,Vote,Library)</li>
   <li>Order by (Alphabet,Vote,Date)</li>
   <li>Show votes</li>
   <li>Link to public game profile</li>
@@ -26,7 +26,9 @@
         </td></tr>
         <tr><td>
           <% if current_user == g.user %>
-             <%= link_to "Edit", edit_game_path(g) %>
+             <%= link_to "Edit", game_path(g) %>
+          <% else %>
+            <%= link_to "Game Profile", game_path(g) %>
           <% end %>
         </td></tr>
       </table>

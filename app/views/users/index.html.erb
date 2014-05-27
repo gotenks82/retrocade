@@ -1,0 +1,32 @@
+<h1>Registered Users</h1>
+
+<% if @users %>
+    <table class="table table-bordered table-responsive">
+      <tr>
+        <td>
+          Name
+        </td>
+        <td>
+          Email
+        </td>
+        <td>
+          N. Uploaded Games
+        </td>
+      </tr>
+      <% @users.each do |u| %>
+        <tr>
+          <td>
+            <%= u.name %>
+          </td>
+          <td>
+            <%= u.email %>
+          </td>
+          <td>
+            <%= u.games.count %>
+          </td>
+        </tr>
+    <% end %>
+    </table>
+<% else %>
+    There are no registered users.
+<% end %>

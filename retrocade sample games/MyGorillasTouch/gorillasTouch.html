@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+	<title>My Gorillas!!!</title>
+
+<link rel="stylesheet" type="text/css" href="css/gorillas.css">
+<script src="javascript/kinetic-v5.1.0.min.js"></script>
+<script src="javascript/jquery-1.11.0.min.js"></script>
+<script src="javascript/gorillasTouch.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(gorillasgame);
+</script>
+</head>
+
+<body>
+<div id="container">
+	<img src = "./img/win.jpg" class="loadingBackground">
+<div id="loading">
+	<div id="progressBarContainer">
+		<div id="progressBar"></div>
+	</div>
+</div>
+<div id="results">
+	<input type="button" id="replay" value="Play Again!">
+</div>
+<div class="controller1">
+	<table>
+	<tr><td colspan="2">Player 1</td></tr>
+	<tr><td>Strengh (0-100)</td><td><input type="text" class="controller1_values" id="velo_c1" value ="" size = "4"></td></tr>
+	<tr><td>Angle (0-90)</td><td><input type="text" class="controller1_values" id="angle_c1" value ="" size = "4"></td></tr>
+	<tr><td colspan="2"><input type="button" id="fire_c1" value="Fire!"></td></tr>
+	</table>
+</div>
+<div class="controller2">
+	<table>
+	<tr><td colspan="2">Player 2</td></tr>
+	<tr><td>Strengh (0-100)</td><td><input type="text" class="controller2_values" id="velo_c2" value ="" size = "4"></td></tr>
+	<tr><td>Angle (0-90)</td><td><input type="text" class="controller2_values" id="angle_c2" value ="" size = "4"></td></tr>
+	<tr><td colspan="2"><input type="button" id="fire_c2" value="Fire!"></td></tr>
+	</table>
+</div>
+<div id="playfield">
+
+</div>
+</div>
+
+</body>
+</html>

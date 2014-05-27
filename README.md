@@ -10,12 +10,15 @@ This is an HTML5/JS gaming portal which will let users:
 first release will store games in the public directory, eventually games will be stored with amazon s3 services.
 
 This is a personal-study project built with:
+
 * Ruby
 * Rails 4
 * jQuery
 * Bootstrap JS
 
 It will eventually include games built with:
+
 * Kineticjs
 * Phaser
+
 and many other game-oriented js libraries.
