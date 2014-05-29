@@ -2,6 +2,11 @@ class JsLibrariesController < ApplicationController
   #client = HTTPClient.new
   #puts client.get_content('http://www.example.com/index.html')
   before_action :load_library, except: [:index, :new, :create]
+  before_action :set_nav
+
+  def set_nav
+    @nav = 'admin_js'
+  end
 
   def load_library
     @js_library = JsLibrary.find(params[:id])
@@ -20,9 +25,9 @@ class JsLibrariesController < ApplicationController
     @js_library = JsLibrary.new(js_library_params)
     @js_library.enabled = true
     if @js_library.check_url_and_save!
-      flash[:notice] = 'Js Library Accepted'
+      flash[:success] = 'Js Library Accepted'
     else
-      flash[:error] = 'Error saving the library, check the provided URL and try again'
+      flash[:danger] = 'Error saving the library, check the provided URL and try again'
     end
     redirect_to action: :index
   end

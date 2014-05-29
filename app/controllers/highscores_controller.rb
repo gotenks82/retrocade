@@ -16,9 +16,9 @@ class HighscoresController < ApplicationController
     @highscore.level = params[:highscore][:level]
     @tempflash = {}
     if @highscore.save
-      @tempflash[:notice] = "save successful"
+      @tempflash[:success] = "save successful"
     else
-      @tempflash[:error] = @highscore.errors.full_messages.to_sentence
+      @tempflash[:danger] = @highscore.errors.full_messages.to_sentence
     end
     respond_to do |format|
       format.js # create.js.erb

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140524130929) do
+ActiveRecord::Schema.define(version: 20140529083654) do
 
   create_table "comments", force: true do |t|
     t.string   "text"
@@ -79,6 +79,10 @@ ActiveRecord::Schema.define(version: 20140524130929) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "description"
+    t.integer  "votes_count",      default: 0,   null: false
+    t.float    "votes_mean",       default: 0.0, null: false
+    t.integer  "comments_count",   default: 0,   null: false
+    t.integer  "highscores_count", default: 0,   null: false
   end
 
   add_index "games", ["name"], name: "index_names_on_games"
@@ -123,6 +127,8 @@ ActiveRecord::Schema.define(version: 20140524130929) do
     t.string   "remember_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "comments_count",   default: 0, null: false
+    t.integer  "highscores_count", default: 0, null: false
   end
 
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
@@ -132,8 +138,10 @@ ActiveRecord::Schema.define(version: 20140524130929) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_id"
+    t.integer  "user_id"
   end
 
   add_index "votes", ["game_id"], name: "index_votes_on_game_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

@@ -1,4 +1,4 @@
-Alex's RetrocadeJS
+<h1 id="header">Alex's RetrocadeJS</h1>
 =========
 
 This is an HTML5/JS gaming portal which will let users:
@@ -22,3 +22,5 @@ It will eventually include games built with:
 * Phaser
 
 and many other game-oriented js libraries.
+
+<h3 id='game_development'>Game Development</h3>

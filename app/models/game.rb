@@ -13,6 +13,13 @@ class Game < ActiveRecord::Base
     self.game_hash = Digest::SHA1.hexdigest("#{self.user.email}-#{self.name}")
   end
 
+  def calculate_mean_vote
+    if self.votes && self.votes.count > 0
+      self.votes_mean = self.votes.inject(0){|r,v| r+=v.vote} / self.votes.count
+      self.save
+    end
+  end
+
   def next_version
     gv = GameVersion.new({:game_id => self.id})
     last_version =  self.last_version

@@ -1,8 +1,17 @@
-<h1>Home</h1>
+<h1>Retrocade's Home</h1>
 
-<ul>To Do:
-  <li>Latest (5)Games</li>
-  <li>Most Voted (5) Games</li>
-  <li>Best (5) Games</li>
-  <li>Most Discussed (5) Games</li>
-</ul>
+
+<div class="container-fluid">
+<% if @latest_games.size > 0 %>
+      <%= render 'layouts/latest_games_list' %>
+<% end %>
+  <% if @best_voted_games.size > 0 %>
+      <%= render 'layouts/best_voted_games_list' %>
+  <% end %>
+  <% if @most_voted_games.size > 0 %>
+      <%= render 'layouts/most_voted_games_list' %>
+  <% end %>
+  <% if @most_discussed_games.size > 0 %>
+      <%= render 'layouts/most_discussed_games_list' %>
+  <% end %>
+</div>

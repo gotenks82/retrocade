@@ -10,7 +10,11 @@ class JsLibrary < ActiveRecord::Base
   end
 
   def check_url_and_save!
-    self.save if check_url
+    begin
+      self.save if check_url
+    rescue Errno::EADDRNOTAVAIL
+      false
+    end
   end
 
   def toggle_enabled!

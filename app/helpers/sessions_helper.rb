@@ -17,7 +17,7 @@ module SessionsHelper
   end
 
   def admin?
-    current_user.email == 'alex.pedini@gmail.com'
+    signed_in? && current_user.email == 'alex.pedini@gmail.com'
   end
 
   def current_user=(user)

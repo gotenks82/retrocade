@@ -1,0 +1,7 @@
+//alert("Game Voted!");
+var flashhtml;
+<% @tempflash.each do |key, value| %>
+flashhtml = "<div class='alert alert-<%= key %>'><%= value %></div>";
+$('#rating_form').append(flashhtml);
+<% end %>
+setTimeout(function(){$('#rating_form').find('.alert').remove()}, 2000);

@@ -1,9 +1,12 @@
 Retrocade::Application.routes.draw do
+
   match 'help', to: 'help#show', via: 'get'
   # get "home/home"
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/votes',   to: 'votes#create',         via: 'post'
+  match '/votes',   to: 'votes#create',         via: 'patch'
   resources :users
   resources :games do
     member do

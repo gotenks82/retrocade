@@ -3,28 +3,28 @@
     <div class="navbar-header">
       <%= link_to "Alex's RetrocadeJS", '#', id: "logo" %>
     </div>
-        <ul class=" nav nav-pills navbar-right container-fluid"><li><%= link_to "Home",    root_path %></li>
-          <li><%= link_to "Browse Games", games_path %></li>
+        <ul class=" nav nav-pills navbar-right container-fluid"><li <%= "class=active" if @nav == 'home' %> ><%= link_to "Home",    root_path %></li>
+          <li <%= "class=active" if @nav == 'games' %>><%= link_to "Browse Games", games_path %></li>
           <% if signed_in? %>
-            <li><%= link_to "Profile", user_path(@current_user) %></li>
-            <li><%= link_to "Log out", signout_path, method: :delete %></li>
+            <li <%= "class=active" if @nav == 'user' %>><%= link_to "Profile", user_path(@current_user) %></li>
+            <li ><%= link_to "Log out", signout_path, method: :delete %></li>
           <%else%>
-            <li><%= link_to "Signup", signup_path %></li>
-            <li><%= link_to "Log in", signin_path %></li>
+            <li <%= "class=active" if @nav == 'signup' %> ><%= link_to "Signup", signup_path %></li>
+            <li <%= "class=active" if @nav == 'signin' %>><%= link_to "Log in", signin_path %></li>
           <%end%>
           <% if admin? %>
-            <li class="dropdown">
+            <li <%= "class=active" if @nav && @nav.include?('admin')%> class="dropdown" id="header_admin">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Admin <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%=link_to 'Manage JS Libraries', js_libraries_path %></li>
-                <li><%=link_to 'Manage Users', users_path%></li>
+                <li <%= "class=active" if @nav == 'admin_js' %> ><%=link_to 'Manage JS Libraries', js_libraries_path %></li>
+                <li <%= "class=active" if @nav == 'admin_users' %>><%=link_to 'Manage Users', users_path%></li>
                 <li><a href="#">other admin functionalities...</a></li>
               </ul>
             </li>
           <% end %>
-           <li><%= link_to "Help", help_path %></li>
+           <li <%= "class=active" if @nav == 'help' %>><%= link_to "Help", help_path %></li>
         </ul>
 
 

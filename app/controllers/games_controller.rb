@@ -2,9 +2,14 @@ class GamesController < ApplicationController
   #before_action :loadGame, only: [:show, :edit, :play, :delete, :update, :save_new_version, :change_version, :delete_version]
   before_action :checkLogin, except: [:index]
   before_action :loadGame, except: [:new, :index, :create]
+  before_action :set_nav
 
   def loadGame
     @game = Game.find(params[:id])
+  end
+
+  def set_nav
+    @nav = 'games'
   end
 
   def new
@@ -20,10 +25,10 @@ class GamesController < ApplicationController
 
   def create
     if Game.create_game!(game_params,params[:game_version], params[:img_assets], params[:game_images], current_user, params[:selected_libraries])
-      flash[:notice] = 'New Game created successfully!'
+      flash[:success] = 'New Game created successfully!'
       redirect_to :back
     else
-      flash[:error] = 'Error creating new Game'
+      flash[:danger] = 'Error creating new Game'
       redirect_to action: :new
     end
   end
@@ -52,9 +57,9 @@ class GamesController < ApplicationController
 
   def change_version
     if params[:new_version] && @game.change_version!(params[:new_version])
-      flash[:notice] = "Game version set to n. #{params[:new_version]}"
+      flash[:success] = "Game version set to n. #{params[:new_version]}"
     else
-      flash[:error] = 'Error updating Game Version'
+      flash[:danger] = 'Error updating Game Version'
     end
     redirect_to action: :edit
   end
@@ -62,9 +67,9 @@ class GamesController < ApplicationController
   def delete_version
     if params[:gv_id] && params[:gv_ver]
       if @game.delete_version!(params[:gv_id],params[:gv_ver])
-        flash[:notice] = "Successfully deleted version n. #{params[:gv_ver]}"
+        flash[:success] = "Successfully deleted version n. #{params[:gv_ver]}"
       else
-        flash[:error] = 'Error Deleting Game Version'
+        flash[:danger] = 'Error Deleting Game Version'
       end
     end
     redirect_to action: :edit
@@ -91,15 +96,15 @@ class GamesController < ApplicationController
       end
       if @game_version.save
          if @game.change_version!(@game_version.version)
-           flash[:notice] = "Game Version updated to n.#{@game_version.version}!"
+           flash[:success] = "Game Version updated to n.#{@game_version.version}!"
          else
-          flash[:error] = 'Error updating Game Version'
+          flash[:danger] = 'Error updating Game Version'
         end
       else
-        flash[:error] = 'Error creating new Version'
+        flash[:danger] = 'Error creating new Version'
       end
     else
-      flash[:error] = 'No Changes to save'
+      flash[:danger] = 'No Changes to save'
     end
     redirect_to action: :edit
   end
@@ -112,6 +117,8 @@ class GamesController < ApplicationController
     @user = current_user
     @play = true
     @highscore = Highscore.new
+      @vote = @game.votes.where(:user => current_user).first
+      @vote = Vote.new({:game => @game, :user => current_user}) unless @vote
   end
 
   def destroy

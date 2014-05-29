@@ -1,0 +1,24 @@
+<div class="row games_list section collapse-group panel panel-danger">
+  <div class="panel-heading"><a class="btn " data-toggle="collapse" data-target="#most_discussed_games"><h3 class="panel-title">Most Discussed Games</h3></a>
+    </div>
+  <div class="collapse panel-body" id="most_discussed_games">
+  <% @most_discussed_games.each do |g| %>
+      <div class="col-md-2 game_thumb">
+        <table>
+          <tr><td><%= g.name %></td></tr>
+          <tr><td>
+            <% unless g.game_images.nil? or g.game_images.size == 0 %>
+                <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
+            <% end %>
+          </td></tr>
+          <tr><td>
+            <%= "#{g.description[0..20]}..." %><%= link_to "show more", game_path(g) %>
+          </td></tr>
+          <tr><td>
+            (<%= g.comments_count%> <%= 'Comment'.pluralize(g.comments_count)%>)
+          </td></tr>
+        </table>
+      </div>
+  <% end %>
+</div>
+</div>

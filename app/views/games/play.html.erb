@@ -1,5 +1,5 @@
-<ul>To Do:
-  <li>Let user vote game</li>
+<div id="play_container">
+<ul class="todo">To Do:
   <li>Let user comment game</li>
   <li>Show top highscores</li>
   <li>Show latest comments on the game</li>
@@ -17,4 +17,10 @@
 </div>
 
 <h6>Created by <%= @game.user.name unless @game.user.nil? %></h6>
+<div id="rating_form">
+  <%= render 'layouts/game_rating_form' %>
+
+</div>
+
+</div>
 <input type="hidden" id="game_content_path" value="/<%= @game.game_version.game_img_assets_path %>">

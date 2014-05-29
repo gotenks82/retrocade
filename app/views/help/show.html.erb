@@ -1,3 +1,24 @@
-<div id='#help'>
+<link href="http://getbootstrap.com/assets/css/docs.min.css" rel="stylesheet">
+<div class="container bs-docs-container" id='help'>
+  <div class="row">
+    <div class="col-md-9" role="main" id="readme">
 <%= markdown @readme %>
 </div>
+
+<div class="col-md-3">
+<div class="bs-docs-sidebar hidden-print" role="complementary">
+  <ul class="nav bs-docs-sidenav">
+    <li>Contents
+      <ul class="nav" id="contents">
+       </ul>
+    </li>
+  </ul>
+</div>
+</div>
+      </div>
+    </div>
+
+<script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+<script>
+  $(document).ready(set_sidebar);
+</script>

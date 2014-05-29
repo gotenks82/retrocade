@@ -4,6 +4,10 @@ div#playfield {
 	text-align: center
 }
 
+div#minefield {
+    margin: 0 auto;
+}
+
 
 #playfield td {
 	border:1px solid black;

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def checkLogin
     unless signed_in?
-      flash[:error] = "User must be logged in"
+      flash[:danger] = "User must be logged in"
       redirect_to :back
     end
   end

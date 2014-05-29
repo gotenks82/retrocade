@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
   before_action :checkLogin, except: [:new, :create]
   before_action :load_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_nav, except: [:new, :create, :index]
 
-
+  def set_nav
+    @nav = 'user'
+  end
 
   def load_user
     @user = User.find(params[:id]);
@@ -10,10 +13,12 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.order(:name);
+    @nav = 'admin_users'
 	end
 
 	def new
 		@user = User.new
+    @nav = 'signup'
 	end
 
 	def create
