@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
 
   def calculate_mean_vote
     if self.votes && self.votes.count > 0
-      self.votes_mean = self.votes.inject(0){|r,v| r+=v.vote} / self.votes.count
+      self.votes_mean = self.votes.inject(0.0){|r,v| r+=v.vote} / self.votes.count
       self.save
     end
   end

@@ -3,20 +3,16 @@
   <div class="collapse panel-body" id="latest_games">
   <% @latest_games.each do |g| %>
       <div class="col-md-2 game_thumb">
-        <table>
-          <tr><td><%= g.name %></td></tr>
-          <tr><td>
-            <% unless g.game_images.nil? or g.game_images.size == 0 %>
-                <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
-            <% end %>
-          </td></tr>
-          <tr><td>
-            <%= "#{g.description[0..20]}..." %><%= link_to "show more", game_path(g) %>
-          </td></tr>
-          <tr><td>
-            Added on <%= g.created_at %>
-          </td></tr>
-        </table>
+        <div class="thumbnail center">
+          <% unless g.game_images.nil? or g.game_images.size == 0 %>
+              <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
+          <% end %>
+          <div class="caption">
+            <h5><%= link_to g.name, play_game_path(g) %></h5>
+            <p><%= "#{g.description[0..20]}..." %><%= link_to "show more", game_path(g) %></p>
+            <h6>Added <%=distance_of_time_in_words_to_now(g.created_at) %> ago</h6>
+          </div>
+        </div>
       </div>
   <% end %>
 </div>

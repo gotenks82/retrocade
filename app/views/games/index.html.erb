@@ -14,24 +14,18 @@
       <div class="row">
 <% @games.each do |g| %>
     <div class="col-md-2">
-      <table>
-        <tr><td><%= g.name %></td></tr>
-        <tr><td>
+      <div class="thumbnail center">
         <% unless g.game_images.nil? or g.game_images.size == 0 %>
             <%= link_to (image_tag g.game_images[0].image_url(:thumb) ), play_game_path(g) %>
         <% end %>
-      </td></tr>
-        <tr><td>
-          <%= g.description %>
-        </td></tr>
-        <tr><td>
+        <div class="caption">
+          <h5><%= link_to g.name, play_game_path(g) %></h5>
+          <p><%= "#{g.description[0..20]}..." %><%= link_to "show more", game_path(g) %></p>
           <% if current_user == g.user %>
-             <%= link_to "Edit", game_path(g) %>
-          <% else %>
-            <%= link_to "Game Profile", game_path(g) %>
+              <%= link_to "Edit", game_path(g), :class => "btn btn-primary", :role => "button" %>
           <% end %>
-        </td></tr>
-      </table>
+        </div>
+      </div>
     </div>
 <% end %>
     </div>

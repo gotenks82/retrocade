@@ -1,6 +1,11 @@
 function send_highscore(score,level){
-    var user = $('#highscore_user_id').val()
-    if(confirm(user+"! do you want to submit your high score? Score:"+score+ "Level:"+level)){
+    var user_id = $('#highscore_user_id').val();
+    var user_name = $('#user_name').val();
+    if(user_id == null || user_id == ''){
+        var flashhtml = "<div class='alert alert-warning'>You have to be logged in to submit a high score.</div>";
+        $("#highscore_form").append(flashhtml);
+        setTimeout(function(){$('#highscore_form').find('.alert').remove()}, 2000);
+    }else if(confirm(user_name+"! do you want to submit your high score? Score:"+score+ "Level:"+level)){
         //submit
         $('#highscore_score').val(score);
         $('#highscore_level').val(level);

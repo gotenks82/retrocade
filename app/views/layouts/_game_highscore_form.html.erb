@@ -3,6 +3,7 @@
     <%= f.hidden_field :game_id, :value => @game.id %>
     <%= f.hidden_field :score %>
     <%= f.hidden_field :level %>
+    <%= hidden_field_tag 'user_name', @user.name, :id => 'user_name' %>
 <% end %>
 <br>
 <%= button_to "Restart Game", play_game_path(@game), method: :get %>

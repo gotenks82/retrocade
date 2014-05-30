@@ -16,10 +16,6 @@ div#play_container {
   margin: 0 auto;
 }
 
-.rating.small {
-  width: 80px;
-  font-size:100%;
-}
 
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
@@ -81,3 +77,58 @@ div#play_container {
   left:2px;
 }
 
+
+.static_rating {
+  //float:left;
+  width: 140px;
+  margin: 0 auto;
+  font-size:100%;
+}
+
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.static_rating:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+  clip:rect(0,0,0,0);
+}
+
+.static_rating legend {
+  font-size:8pt;
+  margin-bottom: 0px;
+}
+
+.static_rating:not(:checked) > label {
+  float:center;
+  width:1em;
+  padding:0 .1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:100%;
+  line-height:1.0;
+  color:#ddd;
+  text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+.static_rating:not(:checked) > label {
+  font-size:100%;
+}
+
+.static_rating:not(:checked) > label:before {
+  content: '★ ';
+}
+
+.static_rating > input:checked ~ label {
+  color: #f70;
+  text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+
+
+.static_rating > label:active {
+  position:relative;
+  top:2px;
+  left:2px;
+}

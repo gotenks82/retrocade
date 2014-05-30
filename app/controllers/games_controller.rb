@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   #before_action :loadGame, only: [:show, :edit, :play, :delete, :update, :save_new_version, :change_version, :delete_version]
-  before_action :checkLogin, except: [:index]
+  before_action :checkLogin, except: [:index, :play]
   before_action :loadGame, except: [:new, :index, :create]
   before_action :set_nav
 
@@ -114,11 +114,11 @@ class GamesController < ApplicationController
   end
 
   def play
-    @user = current_user
+    @user = current_user ? current_user : User.new
     @play = true
     @highscore = Highscore.new
-      @vote = @game.votes.where(:user => current_user).first
-      @vote = Vote.new({:game => @game, :user => current_user}) unless @vote
+    @vote = @game.votes.where(:user => @user).first
+    @vote = Vote.new({:game => @game, :user => @user}) unless @vote
   end
 
   def destroy
