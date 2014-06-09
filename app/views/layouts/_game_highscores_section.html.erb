@@ -1,0 +1,35 @@
+<span class="glyphicon glyphicon-chevron-left show_highscores" title="Hide highscores" id='toggle_highscores' onclick="toggle_highscores();"></span>
+<table class="highscores_table table table-striped small hidden">
+<thead>
+  <tr>
+    <td colspan="3">Top 10 highscores!</td>
+  </tr>
+<tr>
+  <td>
+    Score(<%=@game.highscore_type%>)
+  </td>
+  <td>
+    Level
+  </td>
+  <td>
+    User
+  </td>
+</tr>
+</thead>
+  <tbody class="highscores_list">
+<% @highscores.each do |h| %>
+<tr>
+  <td>
+    <%= h.score %>
+  </td>
+  <td>
+    <%= h.level %>
+  </td>
+  <td>
+    <%= h.user.name %>
+  </td>
+</tr>
+<% end %>
+  </tbody>
+</table>
+<span class="rotate-highscores-text small">Top 10 Highscores! </span>

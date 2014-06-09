@@ -3,7 +3,6 @@
 <ul>To Do:
   <li>Search by (Name,Tags,Vote,Library)</li>
   <li>Order by (Alphabet,Vote,Date)</li>
-  <li>Show votes</li>
   <li>Link to public game profile</li>
   <li>Link to public user profile</li>
 </ul>
@@ -21,6 +20,14 @@
         <div class="caption">
           <h5><%= link_to g.name, play_game_path(g) %></h5>
           <p><%= "#{g.description[0..20]}..." %><%= link_to "show more", game_path(g) %></p>
+          <h6>(Vote:<%= g.votes_mean.round(2) %>)</h6>
+          <fieldset class="static_rating">
+            <input type="checkbox" <% if g.votes_mean.round == 5 %>checked<%end%> disabled><label for="star5" title="Rocks!">5 stars</label>
+            <input type="checkbox" <% if g.votes_mean.round == 4 %>checked<%end%> disabled><label for="star4" title="Pretty good">4 stars</label>
+            <input type="checkbox" <% if g.votes_mean.round == 3 %>checked<%end%> disabled><label for="star3" title="Meh">3 stars</label>
+            <input type="checkbox" <% if g.votes_mean.round == 2 %>checked<%end%> disabled><label for="star2" title="Kinda bad">2 stars</label>
+            <input type="checkbox" <% if g.votes_mean.round == 1 %>checked<%end%> disabled><label for="star1" title="Sucks big time">1 star</label>
+          </fieldset>
           <% if current_user == g.user %>
               <%= link_to "Edit", game_path(g), :class => "btn btn-primary", :role => "button" %>
           <% end %>

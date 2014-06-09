@@ -1,0 +1,7 @@
+$("#comments_section").html("<%= escape_javascript(render partial: 'layouts/game_comments_section' ) %>");
+var flashhtml;
+<% @tempflash.each do |key, value| %>
+flashhtml = "<div class='alert alert-<%= key %>'><%= value %></div>";
+$('#comments_section').prepend(flashhtml);
+<% end %>
+setTimeout(function(){$('#comments_section').find('.alert').remove()}, 5000);

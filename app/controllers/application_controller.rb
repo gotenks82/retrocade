@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
 
+
   def checkLogin
     unless signed_in?
       flash[:danger] = "User must be logged in"

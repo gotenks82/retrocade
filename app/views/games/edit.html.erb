@@ -18,6 +18,15 @@
       <%= f.label :description %>
       <%= f.text_area :description %>
     </div>
+    <div>
+      <%= f.label 'Highscore Unit' %>
+      <%= f.select :highscore_type, GamesHelper::HIGHSCORE_UNIT %>
+    </div>
+    <div>
+      <%= f.label 'Highscores Order' %>
+      <%= f.select :highscore_order, GamesHelper::HIGHSCORE_ORDER %>
+    </div>
+
     <%= f.fields_for :game_images do |p| %>
         <div class="field">
           <%= p.label :game_screenshots %>

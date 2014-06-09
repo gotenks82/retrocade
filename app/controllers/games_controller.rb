@@ -77,6 +77,7 @@ class GamesController < ApplicationController
 
   def save_new_version # TODO: refactor - move logic to game or game_version model
     @game_version =  @game.next_version
+    #@game_version = @game.create_next_version!(params[:game_version], params[:img_assets], params[:selected_libraries])
     if params[:game_version]
       @game_version.changes_from_last_version = params[:game_version][:changes_from_last_version]
       @game_version.main_method = params[:game_version][:main_method]
@@ -119,6 +120,9 @@ class GamesController < ApplicationController
     @highscore = Highscore.new
     @vote = @game.votes.where(:user => @user).first
     @vote = Vote.new({:game => @game, :user => @user}) unless @vote
+    @comment = Comment.new({:game => @game, :user => @user })
+    @comments = @game.comments.order('created_at desc')
+    @highscores = @game.highscores.order("level, score #{@game.highscore_order}").limit(10)
   end
 
   def destroy
@@ -133,6 +137,6 @@ class GamesController < ApplicationController
 
 private
   def game_params
-    params.require(:game).permit(:name, :description)
+    params.require(:game).permit(:name, :description, :highscore_order, :highscore_type)
   end
 end

@@ -1,5 +1,6 @@
 Retrocade::Application.routes.draw do
 
+  get "comments/create"
   match 'help', to: 'help#show', via: 'get'
   # get "home/home"
   match '/signup',  to: 'users#new',            via: 'get'
@@ -7,6 +8,7 @@ Retrocade::Application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
   match '/votes',   to: 'votes#create',         via: 'post'
   match '/votes',   to: 'votes#create',         via: 'patch'
+  match '/game_highscores', to: 'highscores#show_game_highscores', via:'get'
   resources :users
   resources :games do
     member do
@@ -25,6 +27,8 @@ Retrocade::Application.routes.draw do
       post 'toggle_enabled'
     end
   end
+
+  resources :comments, only: [:create]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -30,6 +30,31 @@ class Game < ActiveRecord::Base
     gv
   end
 
+  def create_next_version!(game_version_params, img_assets_params, selected_libraries_params)
+    if game_version_params
+      gv = next_version
+      gv.changes_from_last_version = game_version_params[:changes_from_last_version]
+      gv.main_method = game_version_params[:main_method]
+      gv.custom_css = CustomCss.new({:game_version => gv, :file => game_version_params[:custom_css]}) if params[:game_version][:custom_css]
+      gv.gameplay_js = GameplayJs.new({:game_version => gv, :file => game_version_params[:gameplay_js]}) if params[:game_version][:gameplay_js]
+      if img_assets_params
+        img_assets_params['img_asset'].each do |a|
+          img = ImgAsset.new
+          img.image = a
+          img.path = @game_version.game_img_assets_path
+          img.save
+        end
+      end
+      if selected_libraries_params
+        selected_libraries_params.each do |js_id|
+          lib = JsLibrary.find(js_id)
+          gv.js_libraries << lib if lib
+        end
+      end
+      change_version!(gv) if gv.save
+    end
+  end
+
   def change_version(ver)
     gv = self.game_versions.where(version: ver).first
     self.game_version = gv if gv

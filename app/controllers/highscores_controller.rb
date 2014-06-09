@@ -6,6 +6,18 @@ class HighscoresController < ApplicationController
   def new
   end
 
+  respond_to :json
+  def show_game_highscores
+    @game = Game.find(params[:game_id])
+    @highscores = Highscore.where(:game_id => params[:game_id]).order("level, score #{@game.highscore_order}").limit(10)
+    respond_with(@highscores) do |format|
+      format.json { render :json => @highscores.to_json(
+          :include => [
+              :user => { :only => [:name, :highscore_type]}])
+      }
+    end
+  end
+
   def create
     @highscore = Highscore.new()
     @game = Game.find(params[:highscore][:game_id])

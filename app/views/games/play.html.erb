@@ -1,8 +1,5 @@
 <div id="play_container">
 <ul class="todo">To Do:
-  <li>Let user comment game</li>
-  <li>Show top highscores</li>
-  <li>Show latest comments on the game</li>
   <li>Link to public user profile...</li>
 </ul>
 <script type="text/javascript">
@@ -15,11 +12,19 @@
 <div id="highscore_form">
 <%= render 'layouts/game_highscore_form' %>
 </div>
-
+<%= button_to 'Restart Game', play_game_path(@game), id: 'restart_button', method: :get %>
 <h6>Created by <%= @game.user.name unless @game.user.nil? %></h6>
 <div id="rating_form">
   <%= render 'layouts/game_rating_form' %>
 </div>
+<br>
+    <div id="comments_section">
+      <%= render 'layouts/game_comments_section' %>
+    </div>
 
+    <div id="highscores_section">
+        <%= render 'layouts/game_highscores_section' %>
+    </div>
 </div>
+
 <input type="hidden" id="game_content_path" value="/<%= @game.game_version.game_img_assets_path %>">

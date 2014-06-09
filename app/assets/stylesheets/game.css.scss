@@ -12,7 +12,7 @@ div#play_container {
 
 .rating {
   float:center;
-  width: 140px;
+  width: 70px;
   margin: 0 auto;
 }
 
@@ -77,10 +77,14 @@ div#play_container {
   left:2px;
 }
 
+.static_rating_div{
+  width: 70px;
+  margin: 0 auto;
+}
 
 .static_rating {
   //float:left;
-  width: 140px;
+  width: 70px;
   margin: 0 auto;
   font-size:100%;
 }
@@ -101,7 +105,7 @@ div#play_container {
 }
 
 .static_rating:not(:checked) > label {
-  float:center;
+  float:right;
   width:1em;
   padding:0 .1em;
   overflow:hidden;
@@ -131,4 +135,111 @@ div#play_container {
   position:relative;
   top:2px;
   left:2px;
+}
+
+
+.detailBox {
+  width:640px;
+  //border:1px solid #bbb;
+  margin:0 auto;
+}
+.titleBox {
+  background-color:#fdfdfd;
+  padding:10px;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.commentBox {
+  padding:10px;
+  border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+  width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+  width:80%;
+}
+.commentBox .form-group:nth-child(3), .actionBox .form-group:nth-child(3) {
+  width:18%;
+}
+.actionBox .form-group * {
+  width:100%;
+}
+.taskDescription {
+  margin-top: 10px;
+}
+.commentList {
+  padding:0;
+  list-style:none;
+  max-height:200px;
+  overflow:auto;
+}
+.commentList li {
+  margin:0;
+  margin-top:10px;
+}
+.commentList li > div {
+  display:table-cell;
+}
+.commenterImage {
+  width:30px;
+  margin-right:5px;
+  height:100%;
+  float:left;
+}
+.commenterImage img {
+  width:100%;
+  border-radius:50%;
+}
+.commentText p {
+  text-align: left;
+  margin:0;
+}
+.sub-text {
+  color:#aaa;
+  font-family:verdana;
+  font-size:11px;
+}
+.actionBox {
+  border-top:1px dotted #bbb;
+  padding:10px;
+}
+
+#highscores_section {
+  width: 300px;
+  top: 100px;
+  right: 0px;
+  position: fixed;
+  overflow-wrap: normal;
+  opacity: 0.6;
+}
+
+.show_highscores {
+  position: relative;
+  right:50px;
+  top: 10px;
+  float: right;
+}
+.hide_highscores {
+  position: absolute;
+  left:0px;
+  top: 10px;
+  float: left;
+}
+
+.rotate-highscores-text {
+  position: absolute;
+  top: 80px;
+  right: 0px;
+  display: block;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  filter: none; /*Mandatory for IE9 to show the vertical text correctly*/
 }
